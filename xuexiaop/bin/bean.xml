@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       			   http://www.springframework.org/schema/beans/spring-beans.xsd
+       			   http://www.springframework.org/schema/aop 
+       			   http://www.springframework.org/schema/aop/spring-aop.xsd">
+     
+     <!-- 把customerservice的对象给spring容器管理 -->  			  
+	<bean name="customerService" class="cn.service.impl.CustomerServiceImpl"></bean>
+	<bean name="logger" class="cn.log.Logger"></bean>
+	
+	<aop:config>
+	    
+	    
+	    <!-- 这是一个日志通知的面，来自名叫logger的bean -->
+	    <aop:aspect id="logAdvice" ref="logger">
+	    	<aop:before method="logbeforeinvoke" pointcut-ref="cs1"/>	
+	        <aop:pointcut expression="execution(void *..*.*(..))" id="cs1"/>
+	    </aop:aspect>
+	    
+	</aop:config>
+</beans>
